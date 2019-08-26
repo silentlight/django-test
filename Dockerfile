@@ -6,6 +6,11 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY . ./app
+RUN pip install pipenv
 
-RUN pip install -r requirements.txt
+COPY Pipfile ./Pipfile
+COPY Pipfile.lock ./Pipfile.lock
+
+RUN pipenv install --deploy --ignore-pipfile
+
+COPY . ./app
